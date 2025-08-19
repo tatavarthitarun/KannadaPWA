@@ -6,6 +6,19 @@
     <title>Kannada PWA - Learn Kannada Language</title>
     <meta name="description" content="Learn Kannada language with Telugu and English transliterations.">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#764ba2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kannada PWA">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0idXJsKCNncmFkaWVudCkiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+4LKFPC90ZXh0Pgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMzIiIHkyPSIzMiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjY3ZWVhO3N0b3Atb3BhY2l0eToxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc2NGJhMjtzdG9wLW9wYWNpdHk6MSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPg==">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjIiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+Cjx0ZXh0IHg9IjkwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+4LKFPC90ZXh0Pgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTgwIiB5Mj0iMTgwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2NjdlZWE7c3RvcC1vcGFjaXR5OjEiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNzY0YmEyO3N0b3Atb3BhY2l0eToxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+">
+    
     <style>
         body {
             margin: 0;
@@ -50,17 +63,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎉 Kannada PWA - Phase 4: Interactive UI Components</h1>
+        <h1>🎉 Kannada PWA - Phase 5: PWA Features</h1>
         <div class="status">
             ✅ Kotlin Multiplatform compilation successful!<br>
             ✅ Transliteration system ready!<br>
             ✅ Content repository loaded!<br>
-            🎨 Phase 4: Interactive UI Components ready!
+            ✅ Interactive UI Components working!<br>
+            🚀 Phase 5: PWA Features ready!
         </div>
         
-        <h2>📋 Phase 4 Console Output:</h2>
+        <h2>📋 Phase 5 Console Output:</h2>
         <div id="console-output" class="console-output">
-            Loading Phase 4 interactive features...
+            Loading Phase 5 PWA features...
         </div>
         
         <div id="root"></div>
@@ -94,6 +108,126 @@
             console.error('❌ Unhandled Promise Rejection:', e.reason);
             consoleOutput.innerHTML += '❌ Unhandled Promise Rejection: ' + e.reason + '\n';
         });
+        
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            console.log('🚀 PWA: Service Worker supported, registering...');
+            
+            navigator.serviceWorker.register('/sw.js')
+                .then((registration) => {
+                    console.log('✅ PWA: Service Worker registered successfully:', registration.scope);
+                    
+                    // Check for updates
+                    registration.addEventListener('updatefound', () => {
+                        console.log('🔄 PWA: Service Worker update found');
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('📱 PWA: New version available, refresh to update');
+                                showUpdateNotification();
+                            }
+                        });
+                    });
+                })
+                .catch((error) => {
+                    console.error('❌ PWA: Service Worker registration failed:', error);
+                });
+        } else {
+            console.log('⚠️ PWA: Service Worker not supported');
+        }
+        
+        // PWA Installation Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('📱 PWA: Install prompt available');
+            e.preventDefault();
+            deferredPrompt = e;
+            showInstallButton();
+        });
+        
+        // PWA Installed Event
+        window.addEventListener('appinstalled', () => {
+            console.log('🎉 PWA: App installed successfully!');
+            hideInstallButton();
+        });
+        
+        // Show install button
+        function showInstallButton() {
+            const installBtn = document.createElement('button');
+            installBtn.id = 'install-btn';
+            installBtn.innerHTML = '📱 Install Kannada PWA';
+            installBtn.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+            `;
+            installBtn.onclick = installPWA;
+            document.body.appendChild(installBtn);
+        }
+        
+        // Hide install button
+        function hideInstallButton() {
+            const installBtn = document.getElementById('install-btn');
+            if (installBtn) {
+                installBtn.remove();
+            }
+        }
+        
+        // Install PWA
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ PWA: User accepted installation');
+                    } else {
+                        console.log('❌ PWA: User declined installation');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+        
+        // Show update notification
+        function showUpdateNotification() {
+            const updateBtn = document.createElement('button');
+            updateBtn.id = 'update-btn';
+            updateBtn.innerHTML = '🔄 Update Available - Click to Refresh';
+            updateBtn.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+            `;
+            updateBtn.onclick = () => window.location.reload();
+            document.body.appendChild(updateBtn);
+        }
+        
+        // Check if app is running in standalone mode (installed)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+            console.log('📱 PWA: Running in standalone mode (installed)');
+        }
+        
+        console.log('🚀 PWA: All PWA features initialized successfully!');
     </script>
     
     <!-- Load our Kotlin/JS bundle -->
