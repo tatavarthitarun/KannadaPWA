@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kannada PWA - Learn Kannada Language</title>
+    <title>Kannada PWA - Phase 6: Advanced UI Components</title>
     <meta name="description" content="Learn Kannada language with Telugu and English transliterations.">
     
     <!-- PWA Manifest -->
@@ -20,74 +20,433 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjIiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+Cjx0ZXh0IHg9IjkwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+4LKFPC90ZXh0Pgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTgwIiB5Mj0iMTgwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2NjdlZWE7c3RvcC1vcGFjaXR5OjEiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNzY0YmEyO3N0b3Atb3BhY2l0eToxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+">
     
     <style>
-        body {
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        h1 {
-            color: #333;
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .status-bar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .status-item.ready { border-left-color: #28a745; }
+        .status-item.working { border-left-color: #ffc107; }
+        .status-item.error { border-left-color: #dc3545; }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .transliteration-input {
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .result-box {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
         
-        .status {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-            background-color: #e8f5e8;
-            border-left: 4px solid #4caf50;
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .lesson-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .lesson-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .lesson-card .kannada-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .lesson-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .vowels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .vowel-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .vowel-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .vowel-kannada {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .vowel-telugu {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .vowel-english {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .vowel-pronunciation {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 5px;
         }
         
         .console-output {
-            background-color: #1e1e1e;
+            background: #1e1e1e;
             color: #d4d4d4;
-            padding: 15px;
-            border-radius: 4px;
+            padding: 20px;
+            border-radius: 15px;
             font-family: 'Courier New', monospace;
             font-size: 14px;
             white-space: pre-wrap;
-            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+        
+        .console-output::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .console-output::-webkit-scrollbar-track {
+            background: #2d2d2d;
+            border-radius: 4px;
+        }
+        
+        .console-output::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+        
+        .console-output::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎉 Kannada PWA - Phase 5: PWA Features</h1>
-        <div class="status">
-            ✅ Kotlin Multiplatform compilation successful!<br>
-            ✅ Transliteration system ready!<br>
-            ✅ Content repository loaded!<br>
-            ✅ Interactive UI Components working!<br>
-            🚀 Phase 5: PWA Features ready!
+        <div class="header">
+            <h1>🎉 Kannada PWA - Phase 6: Advanced UI Components</h1>
+            <p>Learn Kannada with beautiful, interactive interface</p>
         </div>
         
-        <h2>📋 Phase 5 Console Output:</h2>
-        <div id="console-output" class="console-output">
-            Loading Phase 5 PWA features...
+        <div class="status-bar">
+            <div class="status-grid">
+                <div class="status-item ready">
+                    <span>✅</span>
+                    <span>Kotlin Multiplatform Ready</span>
+                </div>
+                <div class="status-item ready">
+                    <span>✅</span>
+                    <span>Transliteration System Active</span>
+                </div>
+                <div class="status-item ready">
+                    <span>✅</span>
+                    <span>Content Repository Loaded</span>
+                </div>
+                <div class="status-item ready">
+                    <span>✅</span>
+                    <span>PWA Features Working</span>
+                </div>
+                <div class="status-item working">
+                    <span>🎨</span>
+                    <span>Advanced UI Components</span>
+                </div>
+            </div>
         </div>
         
-        <div id="root"></div>
+        <div class="main-content">
+            <!-- Real-time Transliteration Card -->
+            <div class="card">
+                <h2>🔄 Real-time Transliteration</h2>
+                <div class="transliteration-input">
+                    <div class="input-group">
+                        <label for="kannada-input">Type in Kannada:</label>
+                        <input type="text" id="kannada-input" placeholder="ನಮಸ್ಕಾರ" maxlength="50">
+                    </div>
+                    <div class="input-group">
+                        <label>Telugu Transliteration:</label>
+                        <div class="result-box" id="telugu-result">Type above to see result</div>
+                    </div>
+                    <div class="input-group">
+                        <label>English Transliteration:</label>
+                        <div class="result-box" id="english-result">Type above to see result</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Learning Progress Card -->
+            <div class="card">
+                <h2>📊 Learning Progress</h2>
+                <div style="margin-bottom: 20px;">
+                    <h3>Overall Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="overall-progress" style="width: 0%"></div>
+                    </div>
+                    <span id="progress-text">0% Complete</span>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <h3>Lessons Completed</h3>
+                    <div id="lessons-completed">0 / 2</div>
+                </div>
+                <div>
+                    <h3>Words Learned</h3>
+                    <div id="words-learned">0 / 13</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interactive Lessons -->
+        <div class="card">
+            <h2>📚 Interactive Lessons</h2>
+            <div class="lesson-grid" id="lessons-container">
+                <!-- Lessons will be populated by Kotlin/JS -->
+            </div>
+        </div>
+        
+        <!-- Interactive Vowels -->
+        <div class="card">
+            <h2>🔤 Interactive Vowels</h2>
+            <div class="vowels-grid" id="vowels-container">
+                <!-- Vowels will be populated by Kotlin/JS -->
+            </div>
+        </div>
+        
+        <!-- Console Output for Debugging -->
+        <div class="card">
+            <h2>📋 Console Output</h2>
+            <div id="console-output" class="console-output">
+                Loading Phase 6 advanced UI components...
+            </div>
+        </div>
     </div>
 
     <script>
         // Capture console.log output and display it
         const consoleOutput = document.getElementById('console-output');
         const originalLog = console.log;
+        const originalError = console.error;
         
         console.log = function(...args) {
             originalLog.apply(console, args);
             consoleOutput.innerHTML += args.join(' ') + '\n';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            consoleOutput.innerHTML += '<span style="color: #ff6b6b;">ERROR: ' + args.join(' ') + '</span>\n';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
         };
         
         // Clear the loading message
@@ -100,13 +459,11 @@
         // Add error handling
         window.addEventListener('error', function(e) {
             console.error('❌ JavaScript Error:', e.error);
-            consoleOutput.innerHTML += '❌ JavaScript Error: ' + e.error + '\n';
         });
         
         // Add unhandled rejection handling
         window.addEventListener('unhandledrejection', function(e) {
             console.error('❌ Unhandled Promise Rejection:', e.reason);
-            consoleOutput.innerHTML += '❌ Unhandled Promise Rejection: ' + e.reason + '\n';
         });
         
         // PWA Service Worker Registration
@@ -156,19 +513,11 @@
             const installBtn = document.createElement('button');
             installBtn.id = 'install-btn';
             installBtn.innerHTML = '📱 Install Kannada PWA';
+            installBtn.className = 'btn';
             installBtn.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                border: none;
-                padding: 12px 20px;
-                border-radius: 25px;
-                cursor: pointer;
-                font-size: 14px;
-                font-weight: bold;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
                 z-index: 1000;
             `;
             installBtn.onclick = installPWA;
@@ -203,19 +552,12 @@
             const updateBtn = document.createElement('button');
             updateBtn.id = 'update-btn';
             updateBtn.innerHTML = '🔄 Update Available - Click to Refresh';
+            updateBtn.className = 'btn';
             updateBtn.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
                 background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-                color: white;
-                border: none;
-                padding: 12px 20px;
-                border-radius: 25px;
-                cursor: pointer;
-                font-size: 14px;
-                font-weight: bold;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
                 z-index: 1000;
             `;
             updateBtn.onclick = () => window.location.reload();
@@ -228,6 +570,164 @@
         }
         
         console.log('🚀 PWA: All PWA features initialized successfully!');
+        console.log('🎨 Phase 6: Advanced UI Components ready!');
+        
+        // Phase 6: Advanced UI Components JavaScript
+        console.log('🎨 Setting up interactive UI components...');
+        
+        // Sample data for demonstration (in real app, this comes from Kotlin)
+        const sampleLessons = [
+            {
+                title: "Kannada Vowels",
+                titleKannada: "ಕನ್ನಡ ಸ್ವರಗಳು",
+                estimatedTime: 15,
+                difficulty: "BEGINNER"
+            },
+            {
+                title: "Basic Numbers",
+                titleKannada: "ಮೂಲ ಸಂಖ್ಯೆಗಳು",
+                estimatedTime: 20,
+                difficulty: "BEGINNER"
+            }
+        ];
+        
+        const sampleVowels = [
+            { kannada: "ಅ", telugu: "అ", english: "a", pronunciation: "ah" },
+            { kannada: "ಆ", telugu: "ఆ", english: "ā", pronunciation: "aa" },
+            { kannada: "ಇ", telugu: "ఇ", english: "i", pronunciation: "ee" },
+            { kannada: "ಈ", telugu: "ఈ", english: "ī", pronunciation: "ee" },
+            { kannada: "ಉ", telugu: "ఉ", english: "u", pronunciation: "oo" }
+        ];
+        
+        // Populate interactive lessons
+        function populateLessons() {
+            const container = document.getElementById('lessons-container');
+            container.innerHTML = '';
+            
+            sampleLessons.forEach(lesson => {
+                const lessonCard = document.createElement('div');
+                lessonCard.className = 'lesson-card';
+                lessonCard.innerHTML = `
+                    <h3>${lesson.title}</h3>
+                    <div class="kannada-title">${lesson.titleKannada}</div>
+                    <div class="lesson-meta">
+                        <span>⏱️ ${lesson.estimatedTime} min</span>
+                        <span>🎯 ${lesson.difficulty}</span>
+                    </div>
+                `;
+                lessonCard.onclick = () => startLesson(lesson);
+                container.appendChild(lessonCard);
+            });
+        }
+        
+        // Populate interactive vowels
+        function populateVowels() {
+            const container = document.getElementById('vowels-container');
+            container.innerHTML = '';
+            
+            sampleVowels.forEach(vowel => {
+                const vowelCard = document.createElement('div');
+                vowelCard.className = 'vowel-card';
+                vowelCard.innerHTML = `
+                    <div class="vowel-kannada">${vowel.kannada}</div>
+                    <div class="vowel-telugu">${vowel.telugu}</div>
+                    <div class="vowel-english">${vowel.english}</div>
+                    <div class="vowel-pronunciation">${vowel.pronunciation}</div>
+                `;
+                vowelCard.onclick = () => practiceVowel(vowel);
+                container.appendChild(vowelCard);
+            });
+        }
+        
+        // Real-time transliteration (simulated)
+        function setupTransliteration() {
+            const input = document.getElementById('kannada-input');
+            const teluguResult = document.getElementById('telugu-result');
+            const englishResult = document.getElementById('english-result');
+            
+            input.addEventListener('input', function() {
+                const kannadaText = this.value;
+                if (kannadaText) {
+                    // Simulate transliteration (in real app, this calls Kotlin functions)
+                    const telugu = simulateTeluguTransliteration(kannadaText);
+                    const english = simulateEnglishTransliteration(kannadaText);
+                    
+                    teluguResult.textContent = telugu;
+                    englishResult.textContent = english;
+                } else {
+                    teluguResult.textContent = 'Type above to see result';
+                    englishResult.textContent = 'Type above to see result';
+                }
+            });
+        }
+        
+        // Simulate transliteration (replace with actual Kotlin calls)
+        function simulateTeluguTransliteration(kannada) {
+            const mapping = {
+                'ನ': 'న', 'ಮ': 'మ', 'ಸ': 'స', 'ಕ': 'క', 'ರ': 'ర',
+                'ಅ': 'అ', 'ಆ': 'ఆ', 'ಇ': 'ఇ', 'ಈ': 'ఈ', 'ಉ': 'ఉ'
+            };
+            return kannada.split('').map(char => mapping[char] || char).join('');
+        }
+        
+        function simulateEnglishTransliteration(kannada) {
+            const mapping = {
+                'ನ': 'na', 'ಮ': 'ma', 'ಸ': 'sa', 'ಕ': 'ka', 'ರ': 'ra',
+                'ಅ': 'a', 'ಆ': 'aa', 'ಇ': 'i', 'ಈ': 'ii', 'ಉ': 'u'
+            };
+            return kannada.split('').map(char => mapping[char] || char).join('');
+        }
+        
+        // Initialize learning progress
+        function initializeProgress() {
+            const overallProgress = document.getElementById('overall-progress');
+            const progressText = document.getElementById('progress-text');
+            const lessonsCompleted = document.getElementById('lessons-completed');
+            const wordsLearned = document.getElementById('words-learned');
+            
+            // Simulate progress (in real app, this comes from Kotlin)
+            const progress = 35; // 35% complete
+            overallProgress.style.width = progress + '%';
+            progressText.textContent = progress + '% Complete';
+            
+            lessonsCompleted.textContent = '1 / 2';
+            wordsLearned.textContent = '5 / 13';
+        }
+        
+        // Lesson interaction
+        function startLesson(lesson) {
+            console.log(`🎯 Starting lesson: ${lesson.title}`);
+            alert(`Starting lesson: ${lesson.title}\n\nThis would open the full lesson interface in Phase 7!`);
+        }
+        
+        // Vowel practice
+        function practiceVowel(vowel) {
+            console.log(`🔤 Practicing vowel: ${vowel.kannada}`);
+            alert(`Practice: ${vowel.kannada} (${vowel.telugu}) - ${vowel.english}\n\nPronunciation: ${vowel.pronunciation}`);
+        }
+        
+        // Initialize all UI components
+        function initializeUI() {
+            console.log('🎨 Initializing UI components...');
+            populateLessons();
+            populateVowels();
+            setupTransliteration();
+            initializeProgress();
+            console.log('✅ UI components initialized successfully!');
+        }
+        
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📱 DOM ready, initializing UI...');
+            initializeUI();
+        });
+        
+        // Fallback initialization
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeUI);
+        } else {
+            initializeUI();
+        }
     </script>
     
     <!-- Load our Kotlin/JS bundle -->

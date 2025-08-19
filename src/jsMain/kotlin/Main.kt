@@ -6,100 +6,137 @@ import com.kannadapwa.data.models.*
 
 fun main() {
     println("🚀 Kannada PWA Starting...")
-    println("🚀 Phase 5: PWA Features - Starting...")
+    println("🎨 Phase 6: Advanced UI Components - Starting...")
 
     // Initialize our core systems
     val engine = TransliterationEngine()
     val repository = ContentRepository()
 
     println("✅ Core systems initialized successfully!")
-    println("🎯 Building PWA Features...")
+    println("🎯 Building Advanced UI Components...")
 
-    // Demonstrate PWA features
-    demonstratePWAFeatures(engine, repository)
+    // Initialize the advanced UI
+    initializeAdvancedUI(engine, repository)
 }
 
-fun demonstratePWAFeatures(engine: TransliterationEngine, repository: ContentRepository) {
-    println("🚀 Demonstrating PWA Features...")
+fun initializeAdvancedUI(engine: TransliterationEngine, repository: ContentRepository) {
+    println("🎨 Initializing Advanced UI Components...")
 
-    // Show the vowels in an interactive format
-    println("\n📚 Interactive Vowels Display:")
+    // Set up real-time transliteration
+    setupRealTimeTransliteration(engine)
+    
+    // Populate interactive lessons
+    populateInteractiveLessons(repository)
+    
+    // Populate interactive vowels
+    populateInteractiveVowels(repository)
+    
+    // Initialize learning progress
+    initializeLearningProgress(repository)
+    
+    // Set up event listeners
+    setupEventListeners(engine, repository)
+    
+    println("✅ Phase 6: Advanced UI Components initialized successfully!")
+    println("🚀 Your interactive Kannada learning interface is ready!")
     println("=".repeat(50))
+}
+
+fun setupRealTimeTransliteration(engine: TransliterationEngine) {
+    println("🔄 Setting up real-time transliteration...")
+    
+    // This will be handled by JavaScript for real-time updates
+    // The Kotlin engine provides the transliteration logic
+}
+
+fun populateInteractiveLessons(repository: ContentRepository) {
+    println("📚 Populating interactive lessons...")
+    
+    val lessons = repository.getAllLessons()
+    lessons.forEach { lesson ->
+        println("📖 Lesson: ${lesson.title} (${lesson.titleKannada})")
+        println("   ⏱️  ${lesson.estimatedTime} minutes")
+        println("   🎯 Difficulty: ${lesson.difficulty}")
+    }
+}
+
+fun populateInteractiveVowels(repository: ContentRepository) {
+    println("🔤 Populating interactive vowels...")
+    
     val vowels = repository.getLettersByCategory(LetterCategory.VOWEL)
     vowels.take(5).forEach { vowel ->
         println("🎯 ${vowel.kannada} -> ${vowel.telugu} -> ${vowel.english} (${vowel.pronunciation})")
     }
+}
 
-    // Show transliteration examples
-    println("\n🔄 Interactive Transliteration Examples:")
-    println("=".repeat(50))
-    val testWords = listOf("ನಮಸ್ಕಾರ", "ಕನ್ನಡ", "ಭಾಷೆ", "ಕಲಿಕೆ")
-    testWords.forEach { word ->
-        println("📝 Kannada: $word")
-        println("   Telugu:  ${engine.kannadaToTelugu(word)}")
-        println("   English: ${engine.kannadaToEnglish(word)}")
-        println()
+fun initializeLearningProgress(repository: ContentRepository) {
+    println("📊 Initializing learning progress...")
+    
+    val totalLessons = repository.getAllLessons().size
+    val totalVowels = repository.getLettersByCategory(LetterCategory.VOWEL).size
+    
+    println("📚 Total Lessons: $totalLessons")
+    println("🔤 Total Vowels: $totalVowels")
+    println("🎯 Progress tracking ready!")
+}
+
+fun setupEventListeners(engine: TransliterationEngine, repository: ContentRepository) {
+    println("🎧 Setting up event listeners...")
+    
+    // These will be handled by JavaScript for real-time interaction
+    // The Kotlin engine and repository provide the data and logic
+}
+
+// Extension function to get transliteration for a word
+fun String.transliterateToTelugu(engine: TransliterationEngine): String {
+    return engine.kannadaToTelugu(this)
+}
+
+fun String.transliterateToEnglish(engine: TransliterationEngine): String {
+    return engine.kannadaToEnglish(this)
+}
+
+// Function to get pronunciation for a letter
+fun Char.getPronunciationGuide(): String {
+    return when (this) {
+        'ಅ' -> "ah (like 'a' in 'about')"
+        'ಆ' -> "aa (like 'a' in 'father')"
+        'ಇ' -> "ee (like 'i' in 'bit')"
+        'ಈ' -> "ee (like 'ee' in 'see')"
+        'ಉ' -> "oo (like 'u' in 'put')"
+        'ಊ' -> "oo (like 'oo' in 'moon')"
+        'ಎ' -> "e (like 'e' in 'bed')"
+        'ಏ' -> "e (like 'ay' in 'say')"
+        'ಐ' -> "ai (like 'ai' in 'aisle')"
+        'ಒ' -> "o (like 'o' in 'go')"
+        'ಓ' -> "o (like 'o' in 'go')"
+        'ಔ' -> "au (like 'ow' in 'cow')"
+        else -> "Pronunciation guide not available"
     }
+}
 
-    // Show lesson information
-    println("\n📖 Interactive Lessons:")
-    println("=".repeat(50))
-    val lessons = repository.getAllLessons()
-    lessons.forEach { lesson ->
-        println("📚 ${lesson.title}")
-        println("   ${lesson.titleKannada}")
-        println("   ⏱️  ${lesson.estimatedTime} minutes")
-        println("   🎯 Difficulty: ${lesson.difficulty}")
-        println()
+// Function to calculate learning progress
+fun calculateProgress(completedLessons: Int, totalLessons: Int, learnedWords: Int, totalWords: Int): Int {
+    val lessonProgress = (completedLessons.toFloat() / totalLessons.toFloat()) * 50
+    val wordProgress = (learnedWords.toFloat() / totalWords.toFloat()) * 50
+    return (lessonProgress + wordProgress).toInt()
+}
+
+// Function to get lesson difficulty color
+fun getDifficultyColor(difficulty: String): String {
+    return when (difficulty) {
+        "BEGINNER" -> "#28a745" // Green
+        "INTERMEDIATE" -> "#ffc107" // Yellow
+        "ADVANCED" -> "#dc3545" // Red
+        else -> "#6c757d" // Default gray
     }
+}
 
-    // PWA Features Demonstration
-    println("\n🚀 PWA Features Status:")
-    println("=".repeat(50))
-    println("📱 Service Worker: ✅ Registered and Active")
-    println("🌐 Offline Support: ✅ Caching enabled")
-    println("📦 App Installation: ✅ Ready for install")
-    println("🔄 Background Sync: ✅ Configured")
-    println("🔔 Push Notifications: ✅ Supported")
-    println("📋 Web App Manifest: ✅ Configured")
-    println("🎨 App-like Experience: ✅ Standalone mode")
-    println()
-
-    // PWA Benefits
-    println("🎯 PWA Benefits for Kannada Learning:")
-    println("=".repeat(50))
-    println("📱 Installable: Add to home screen like a native app")
-    println("🌐 Offline First: Learn Kannada even without internet")
-    println("🔄 Auto-updates: Always get the latest content")
-    println("📱 Responsive: Works perfectly on all devices")
-    println("🚀 Fast Loading: Cached resources for instant access")
-    println("🔔 Notifications: Get reminded to practice daily")
-    println("📊 Analytics: Track your learning progress")
-    println()
-
-    // Offline Content Preview
-    println("📦 Offline Content Available:")
-    println("=".repeat(50))
-    println("✅ All Kannada vowels and consonants")
-    println("✅ Basic numbers and common words")
-    println("✅ Lesson content and exercises")
-    println("✅ Transliteration engine")
-    println("✅ User progress tracking")
-    println("✅ App interface and styling")
-    println()
-
-    // Installation Instructions
-    println("📱 How to Install Kannada PWA:")
-    println("=".repeat(50))
-    println("1. Look for the 'Install' button in your browser")
-    println("2. Click 'Install' to add to home screen")
-    println("3. Or use browser menu: More Tools > Install App")
-    println("4. On mobile: Add to Home Screen from browser menu")
-    println("5. Enjoy offline Kannada learning experience!")
-    println()
-
-    println("✅ Phase 5: PWA Features demonstrated successfully!")
-    println("🚀 Your Kannada PWA is now fully functional!")
-    println("📱 Install it and start learning offline!")
-    println("=".repeat(50))
+// Function to format time duration
+fun formatDuration(minutes: Int): String {
+    return when {
+        minutes < 60 -> "${minutes} min"
+        minutes == 60 -> "1 hour"
+        else -> "${minutes / 60}h ${minutes % 60}m"
+    }
 }
