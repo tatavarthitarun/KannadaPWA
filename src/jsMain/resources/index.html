@@ -50,16 +50,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎉 Kannada PWA - Phase 2 Testing</h1>
+        <h1>🎉 Kannada PWA - Phase 4: Interactive UI Components</h1>
         <div class="status">
             ✅ Kotlin Multiplatform compilation successful!<br>
             ✅ Transliteration system ready!<br>
-            ✅ Content repository loaded!
+            ✅ Content repository loaded!<br>
+            🎨 Phase 4: Interactive UI Components ready!
         </div>
         
-        <h2>📋 Console Output:</h2>
+        <h2>📋 Phase 4 Console Output:</h2>
         <div id="console-output" class="console-output">
-            Loading test results...
+            Loading Phase 4 interactive features...
         </div>
         
         <div id="root"></div>
@@ -77,6 +78,25 @@
         
         // Clear the loading message
         consoleOutput.innerHTML = '';
+        
+        // Add test message to verify the page is working
+        console.log('🚀 HTML page loaded successfully!');
+        console.log('📱 Waiting for Kotlin/JS code to execute...');
+        
+        // Add error handling
+        window.addEventListener('error', function(e) {
+            console.error('❌ JavaScript Error:', e.error);
+            consoleOutput.innerHTML += '❌ JavaScript Error: ' + e.error + '\n';
+        });
+        
+        // Add unhandled rejection handling
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('❌ Unhandled Promise Rejection:', e.reason);
+            consoleOutput.innerHTML += '❌ Unhandled Promise Rejection: ' + e.reason + '\n';
+        });
     </script>
+    
+    <!-- Load our Kotlin/JS bundle -->
+    <script src="KannadaPWA.js"></script>
 </body>
 </html>
