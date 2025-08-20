@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kannada PWA - Phase 6: Advanced UI Components</title>
+                    <title>Kannada PWA - Phase 7: Full Lesson Interface</title>
     <meta name="description" content="Learn Kannada language with Telugu and English transliterations.">
     
     <!-- PWA Manifest -->
@@ -336,8 +336,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎉 Kannada PWA - Phase 6: Advanced UI Components</h1>
-            <p>Learn Kannada with beautiful, interactive interface</p>
+            <h1>🎉 Kannada PWA - Phase 7: Full Lesson Interface</h1>
+            <p>Learn Kannada with complete lessons and interactive exercises</p>
         </div>
         
         <div class="status-bar">
@@ -359,8 +359,8 @@
                     <span>PWA Features Working</span>
                 </div>
                 <div class="status-item working">
-                    <span>🎨</span>
-                    <span>Advanced UI Components</span>
+                    <span>🎓</span>
+                    <span>Full Lesson Interface</span>
                 </div>
             </div>
         </div>
@@ -412,6 +412,9 @@
             <div class="lesson-grid" id="lessons-container">
                 <!-- Lessons will be populated by Kotlin/JS -->
             </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="openLessonInterface()">🎓 Open Full Lesson Interface</button>
+            </div>
         </div>
         
         <!-- Interactive Vowels -->
@@ -426,7 +429,7 @@
         <div class="card">
             <h2>📋 Console Output</h2>
             <div id="console-output" class="console-output">
-                Loading Phase 6 advanced UI components...
+                Loading Phase 7 full lesson interface...
             </div>
         </div>
     </div>
@@ -570,10 +573,10 @@
         }
         
         console.log('🚀 PWA: All PWA features initialized successfully!');
-        console.log('🎨 Phase 6: Advanced UI Components ready!');
+        console.log('🎓 Phase 7: Full Lesson Interface ready!');
         
-        // Phase 6: Advanced UI Components JavaScript
-        console.log('🎨 Setting up interactive UI components...');
+        // Phase 7: Full Lesson Interface JavaScript
+        console.log('🎓 Setting up lesson interface components...');
         
         // Sample data for demonstration (in real app, this comes from Kotlin)
         const sampleLessons = [
@@ -727,6 +730,12 @@
             document.addEventListener('DOMContentLoaded', initializeUI);
         } else {
             initializeUI();
+        }
+        
+        // Function to open full lesson interface
+        function openLessonInterface() {
+            console.log('🎓 Opening full lesson interface...');
+            window.open('/lessons.html', '_blank');
         }
     </script>
     
